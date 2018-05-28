@@ -1,12 +1,21 @@
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bank {
 
-	public void add(BankAccount account1) {
-		// TODO Auto-generated method stub
-		
+	Map<String, BankAccount> accounts = new HashMap<>();
+
+	public void add(BankAccount account) {
+		accounts.put(account.getAccountNumber(), account);
+
 	}
 
-	public BankAccount findAccount(String string) {
+	public BankAccount findAccount(String accountNum) {
+		return accounts.get(accountNum);
+	}
+
+	public Collection<BankAccount> getAllAccounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}
