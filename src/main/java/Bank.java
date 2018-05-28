@@ -21,19 +21,25 @@ public class Bank {
 
 	public void close(BankAccount account) {
 		accounts.remove(account.getAccountNumber(), account);
-		
+
 	}
 
 	public void withdraw(String accountNumber, int amount) {
 		BankAccount withdrawFromAccount = findAccount(accountNumber);
 		withdrawFromAccount.withdraw(amount);
-		
+
 	}
 
 	public void deposit(String accountNumber, int amount) {
 		BankAccount depositToAccount = findAccount(accountNumber);
 		depositToAccount.deposit(amount);
-		
+
 	}
 
+	public void showAccounts() {
+		for (BankAccount current : accounts.values()) {
+			System.out.println(current.getAccountNumber() + " " + current.getType() + " " + current.getBalance());
+		}
+
+	}
 }
