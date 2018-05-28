@@ -1,5 +1,10 @@
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder; 
+import static org.hamcrest.Matchers.nullValue;
+
 
 import java.util.Collection;
 
@@ -31,7 +36,30 @@ public class BankTest {
 		underTest.add(account1);
 		underTest.add(account2);
 		Collection<BankAccount> allAccounts = underTest.getAllAccounts();
-		assertThat(allAccounts, contains(account1, account2));
+		assertThat(allAccounts, containsInAnyOrder(account1, account2));
+		assertEquals(2, allAccounts.size());
+	}
+	
+	@Test
+	public void shouldBeAbleToCloseAnAccount() {
+		underTest.add(account1);
+		underTest.close(account1);
+		BankAccount retrievedAccount = underTest.findAccount(account1.getAccountNumber());
+		assertThat(retrievedAccount, is(nullValue()));
+	}
+	
+	@Test
+	public void shouldWithdrawFromAccount() {
+		underTest.add(account1);
+		underTest.withdraw(account1.getAccountNumber(), 50);
+		assertThat(account1.getBalance(), is (50));
+	}
+	
+	@Test
+	public void shouldDepostiToAccount() {
+		underTest.add(account1);
+		underTest.deposit(account1.getAccountNumber(), 50);
+		assertThat(account1.getBalance(), is (150));
 	}
 
 }
